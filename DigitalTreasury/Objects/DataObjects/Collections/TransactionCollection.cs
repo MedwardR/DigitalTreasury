@@ -16,32 +16,32 @@ namespace DigitalTreasury.Objects.DataObjects.Collections
             Transaction newTransaction = new(today, 0);
             Add(newTransaction);
         }
-        public void NewTransaction(int index, DateOnly date, float amount)
+        public void NewTransaction(int index, DateOnly date, decimal amount)
         {
             Transaction newTransaction = new(index, date, amount);
             Add(newTransaction);
         }
-        public void NewTransaction(DateOnly date, float amount)
+        public void NewTransaction(DateOnly date, decimal amount)
         {
             Transaction newTransaction = new(date, amount);
             Add(newTransaction);
         }
-        public void NewTransaction(int index, DateOnly date, float amount, string description)
+        public void NewTransaction(int index, DateOnly date, decimal amount, string description)
         {
             Transaction newTransaction = new(index, date, amount, description);
             Add(newTransaction);
         }
-        public void NewTransaction(DateOnly date, float amount, string description)
+        public void NewTransaction(DateOnly date, decimal amount, string description)
         {
             Transaction newTransaction = new(date, amount, description);
             Add(newTransaction);
         }
-        public void NewTransaction(int index, DateOnly date, float amount, string description, bool verified)
+        public void NewTransaction(int index, DateOnly date, decimal amount, string description, bool verified)
         {
             Transaction newTransaction = new(index, date, amount, description, verified);
             Add(newTransaction);
         }
-        public void NewTransaction(DateOnly date, float amount, string description, bool verified)
+        public void NewTransaction(DateOnly date, decimal amount, string description, bool verified)
         {
             Transaction newTransaction = new(date, amount, description, verified);
             Add(newTransaction);

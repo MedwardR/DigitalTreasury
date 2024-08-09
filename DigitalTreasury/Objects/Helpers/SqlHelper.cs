@@ -22,7 +22,8 @@ namespace DigitalTreasury.Objects.Helpers
 
         public const string CreateOrgTableString =
         @"CREATE TABLE IF NOT EXISTS ""organization"" (
-            ""name""    TEXT NOT NULL
+            ""name""    TEXT NOT NULL,
+            ""principle""   NUMERIC NOT NULL DEFAULT 0
         );";
 
         public const string DropTransactionsTable =
@@ -41,7 +42,7 @@ namespace DigitalTreasury.Objects.Helpers
         {
             return GetInsertIntoTransactionsString(t.Index, t.Date.ToString("yyyy-MM-dd"), t.Amount, t.Description, t.Verified ? 1 : 0);
         }
-        public static string GetInsertIntoTransactionsString(int index, string date, float amount, string description, int verified)
+        public static string GetInsertIntoTransactionsString(int index, string date, decimal amount, string description, int verified)
         {
             return $@"INSERT INTO transactions (""index"", ""date"", ""amount"", ""description"", ""verified"") values ({index.ToString()}, '{date}', {amount.ToString()}, '{description}', {verified.ToString()});";
         }

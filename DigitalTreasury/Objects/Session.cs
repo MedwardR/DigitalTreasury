@@ -7,6 +7,7 @@ using DigitalTreasury.Objects.DataObjects;
 using DigitalTreasury.Objects;
 using DigitalTreasury.AppForms;
 using System.Security.Cryptography;
+using System.Globalization;
 
 namespace DigitalTreasury.Objects
 {
@@ -15,18 +16,16 @@ namespace DigitalTreasury.Objects
         private readonly DataManager m_dm;
         private readonly Organization m_org;
         private Ledger m_ledger;
+        private NumberFormatInfo m_numberFormet;
 
         public Session()
         {
             m_dm = new DataManager();
 
-            if (this.IsDebug)
-            {
-                DataManager.Logging.LogNewSession();
-            }
-
             m_ledger = m_dm.GetLedger();
             m_org = m_dm.GetOrganizationFromId(m_dm.Settings.LastOrgId);
+
+            m_numberFormet = GetNewNumberFormat();
         }
 
         public Organization Organization
@@ -56,14 +55,14 @@ namespace DigitalTreasury.Objects
         }
         public void SaveLedger(Ledger ledger)
         {
-            try
-            {
-                m_dm.SaveLedger(ledger);
-            }
-            catch (Exception ex)
-            {
-                DataManager.Logging.WriteException(ex);
-            }
+            m_dm.SaveLedger(ledger);
+        }
+
+        public static NumberFormatInfo GetNewNumberFormat()
+        {
+            NumberFormatInfo nfi = (NumberFormatInfo)CultureInfo.CurrentCulture.NumberFormat.Clone();
+            nfi.CurrencyNegativePattern = 1;
+            return nfi;
         }
     }
 }

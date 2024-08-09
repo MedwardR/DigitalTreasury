@@ -30,8 +30,10 @@
         {
             lblCreateNewDb = new Label();
             tbOrgName = new TextBox();
-            label1 = new Label();
+            lblOrgName = new Label();
             btnInitialize = new Button();
+            lblPrinciple = new Label();
+            tbPrinciple = new TextBox();
             SuspendLayout();
             // 
             // lblCreateNewDb
@@ -50,39 +52,60 @@
             tbOrgName.Location = new Point(63, 159);
             tbOrgName.Name = "tbOrgName";
             tbOrgName.Size = new Size(351, 23);
-            tbOrgName.TabIndex = 1;
+            tbOrgName.TabIndex = 100;
             tbOrgName.KeyDown += tbOrgName_KeyDown;
             // 
-            // label1
+            // lblOrgName
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(63, 141);
-            label1.Name = "label1";
-            label1.Size = new Size(113, 15);
-            label1.TabIndex = 2;
-            label1.Text = "Organization Name:";
+            lblOrgName.AutoSize = true;
+            lblOrgName.Location = new Point(63, 141);
+            lblOrgName.Name = "lblOrgName";
+            lblOrgName.Size = new Size(113, 15);
+            lblOrgName.TabIndex = 2;
+            lblOrgName.Text = "Organization Name:";
             // 
             // btnInitialize
             // 
-            btnInitialize.Location = new Point(195, 188);
+            btnInitialize.Location = new Point(339, 212);
             btnInitialize.Name = "btnInitialize";
             btnInitialize.Size = new Size(75, 23);
-            btnInitialize.TabIndex = 3;
+            btnInitialize.TabIndex = 300;
             btnInitialize.Text = "Initialize";
             btnInitialize.UseVisualStyleBackColor = true;
             btnInitialize.Click += btnInitialize_Click;
             // 
-            // frmDbSetup
+            // lblPrinciple
+            // 
+            lblPrinciple.AutoSize = true;
+            lblPrinciple.Location = new Point(63, 194);
+            lblPrinciple.Name = "lblPrinciple";
+            lblPrinciple.Size = new Size(103, 15);
+            lblPrinciple.TabIndex = 4;
+            lblPrinciple.Text = "Principle Amount:";
+            // 
+            // tbPrinciple
+            // 
+            tbPrinciple.Location = new Point(63, 212);
+            tbPrinciple.Name = "tbPrinciple";
+            tbPrinciple.Size = new Size(253, 23);
+            tbPrinciple.TabIndex = 200;
+            tbPrinciple.KeyDown += tbPrinciple_KeyDown;
+            tbPrinciple.Leave += tbPrinciple_Leave;
+            // 
+            // frmOrgSetup
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(492, 289);
+            Controls.Add(tbPrinciple);
+            Controls.Add(lblPrinciple);
             Controls.Add(btnInitialize);
-            Controls.Add(label1);
+            Controls.Add(lblOrgName);
             Controls.Add(tbOrgName);
             Controls.Add(lblCreateNewDb);
-            Name = "frmDbSetup";
-            Text = "Setup";
+            Name = "frmOrgSetup";
+            Text = "Organization Setup";
+            FormClosing += frmOrgSetup_FormClosing;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -91,7 +114,9 @@
 
         private Label lblCreateNewDb;
         private TextBox tbOrgName;
-        private Label label1;
+        private Label lblOrgName;
         private Button btnInitialize;
+        private Label lblPrinciple;
+        private TextBox tbPrinciple;
     }
 }

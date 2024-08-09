@@ -5,7 +5,7 @@ namespace DigitalTreasury.Objects.DataObjects
 {
     public class Ledger
     {
-        private float m_principle;
+        private decimal m_principle;
         private TransactionCollection m_transactions;
 
         #region "Constructors"
@@ -14,12 +14,12 @@ namespace DigitalTreasury.Objects.DataObjects
             m_principle = 0;
             m_transactions = new TransactionCollection();
         }
-        public Ledger(float principle)
+        public Ledger(decimal principle)
         {
             m_principle = principle;
             m_transactions = new TransactionCollection();
         }
-        public Ledger(float principle, TransactionCollection transactions)
+        public Ledger(decimal principle, TransactionCollection transactions)
         {
             m_principle = principle;
             m_transactions = transactions;
@@ -27,7 +27,7 @@ namespace DigitalTreasury.Objects.DataObjects
         #endregion
 
         #region "Public Properties"
-        public float Principle
+        public decimal Principle
         {
             get { return m_principle; }
             set { m_principle = value; }
@@ -39,11 +39,11 @@ namespace DigitalTreasury.Objects.DataObjects
             set { m_transactions = value; }
         }
 
-        public float Total
+        public decimal Total
         {
             get
             {
-                float total = Principle;
+                decimal total = Principle;
                 foreach (Transaction t in Transactions)
                 {
                     total += t.Amount;
@@ -74,27 +74,27 @@ namespace DigitalTreasury.Objects.DataObjects
             DateOnly today = DateOnly.FromDateTime(DateTime.Now);
             Transactions.NewTransaction(today, 0);
         }
-        public void NewTransaction(int index, DateOnly date, float amount)
+        public void NewTransaction(int index, DateOnly date, decimal amount)
         {
             Transactions.NewTransaction(index, date, amount);
         }
-        public void NewTransaction(DateOnly date, float amount)
+        public void NewTransaction(DateOnly date, decimal amount)
         {
             Transactions.NewTransaction(date, amount);
         }
-        public void NewTransaction(int index, DateOnly date, float amount, string description)
+        public void NewTransaction(int index, DateOnly date, decimal amount, string description)
         {
             Transactions.NewTransaction(index, date, amount, description);
         }
-        public void NewTransaction(DateOnly date, float amount, string description)
+        public void NewTransaction(DateOnly date, decimal amount, string description)
         {
             Transactions.NewTransaction(date, amount, description);
         }
-        public void NewTransaction(int index, DateOnly date, float amount, string description, bool verified)
+        public void NewTransaction(int index, DateOnly date, decimal amount, string description, bool verified)
         {
             Transactions.NewTransaction(index, date, amount, description, verified);
         }
-        public void NewTransaction(DateOnly date, float amount, string description, bool verified)
+        public void NewTransaction(DateOnly date, decimal amount, string description, bool verified)
         {
             Transactions.NewTransaction(date, amount, description, verified);
         }

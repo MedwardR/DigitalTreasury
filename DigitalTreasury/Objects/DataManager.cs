@@ -72,7 +72,7 @@ namespace DigitalTreasury.Objects
             {
                 int index = reader.GetInt32(0);
                 DateOnly date = DateOnly.FromDateTime(reader.GetDateTime(1));
-                float amount = reader.GetFloat(2);
+                decimal amount = reader.GetDecimal(2);
                 string description = reader.GetString(3);
                 bool verified = reader.GetInt16(4) == 1;
 
@@ -132,14 +132,25 @@ namespace DigitalTreasury.Objects
 
             SqliteCommand cmd = m_dbConn.CreateCommand();
             cmd.CommandText = SqlHelper.SelectAllFromOrgString;
-            SqliteDataReader reader = cmd.ExecuteReader();
+
+            SqliteDataReader reader;
+            try
+            {
+                reader = cmd.ExecuteReader();
+            }
+            catch
+            {
+                CreateNewOrgTable();
+                return GetOrganizationFromId(orgId);
+            }
+
             reader.Read();
             string orgName = "";
-            float principle = 0;
+            decimal principle = 0;
             try
             {
                 orgName = reader.GetString(0);
-                principle = reader.GetFloat(1);
+                principle = reader.GetDecimal(1);
             }
             catch (InvalidOperationException ex)
             {

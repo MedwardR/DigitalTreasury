@@ -12,12 +12,12 @@ namespace DigitalTreasury.Objects.DataObjects
     {
         private int m_index;
         private DateOnly m_date;
-        private float m_amount;
+        private decimal m_amount;
         private string m_desc;
         private bool m_verified;
 
         #region "Constructors"
-        public Transaction(int index, DateOnly date, float amount)
+        public Transaction(int index, DateOnly date, decimal amount)
         {
             m_index = index;
             m_date = date;
@@ -25,7 +25,7 @@ namespace DigitalTreasury.Objects.DataObjects
             m_desc = string.Empty;
             m_verified = false;
         }
-        public Transaction(DateOnly date, float amount)
+        public Transaction(DateOnly date, decimal amount)
         {
             m_index = 0;
             m_date = date;
@@ -33,7 +33,7 @@ namespace DigitalTreasury.Objects.DataObjects
             m_desc = string.Empty;
             m_verified = false;
         }
-        public Transaction(int index, DateOnly date, float amount, string description)
+        public Transaction(int index, DateOnly date, decimal amount, string description)
         {
             m_index = index;
             m_date = date;
@@ -41,7 +41,7 @@ namespace DigitalTreasury.Objects.DataObjects
             m_desc = description;
             m_verified = false;
         }
-        public Transaction(DateOnly date, float amount, string description)
+        public Transaction(DateOnly date, decimal amount, string description)
         {
             m_index = 0;
             m_date = date;
@@ -49,7 +49,7 @@ namespace DigitalTreasury.Objects.DataObjects
             m_desc = description;
             m_verified = false;
         }
-        public Transaction(int index, DateOnly date, float amount, string description, bool verified)
+        public Transaction(int index, DateOnly date, decimal amount, string description, bool verified)
         {
             m_index = index;
             m_date = date;
@@ -57,7 +57,7 @@ namespace DigitalTreasury.Objects.DataObjects
             m_desc = description;
             m_verified = verified;
         }
-        public Transaction(DateOnly date, float amount, string description, bool verified)
+        public Transaction(DateOnly date, decimal amount, string description, bool verified)
         {
             m_index = 0;
             m_date = date;
@@ -80,7 +80,7 @@ namespace DigitalTreasury.Objects.DataObjects
             set { m_date = value; }
         }
 
-        public float Amount
+        public decimal Amount
         {
             get { return m_amount; }
             set { m_amount = value; }
