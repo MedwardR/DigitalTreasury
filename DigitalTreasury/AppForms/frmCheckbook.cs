@@ -1,5 +1,4 @@
-﻿using DigitalTreasury.Objects.Generic;
-using DigitalTreasury.Objects;
+﻿using DigitalTreasury.Objects;
 using DigitalTreasury.Objects.DataObjects;
 using DigitalTreasury.Objects.DataObjects.Collections;
 
@@ -9,9 +8,6 @@ namespace DigitalTreasury.Forms
     {
         private readonly Session m_session;
         private Ledger m_ledger;
-        private TransactionCollection m_visible_transactions;
-        private MonthYear m_selected_month;
-        private bool m_validated_events_processing = false;
 
         public frmCheckbook(Session session)
         {
@@ -22,23 +18,32 @@ namespace DigitalTreasury.Forms
             GetData();
 
             SetBindings();
+
+            ShowStatus(Status.None);
         }
 
         private void SetBindings()
         {
-            bsSession.DataSource = m_session;
-            bsLedger.DataSource = m_ledger;
+            dgvTransactions.DataSource = m_ledger.Transactions;
+            tsLblSessionOrg.Text = m_session.Organization.Name;
         }
 
         private void GetData()
         {
-            m_ledger = m_session.Ledger;
-            bsLedger.ResetBindings(false);
+            m_ledger = m_session.DataManager.GetLedger();
         }
 
         private void SaveData()
         {
-            m_session.SaveLedger(m_ledger);
+            if (m_ledger.HasChanges)
+            {
+                m_session.DataManager.SaveLedger(m_ledger);
+                ShowStatus(Status.SaveSuccessful);
+            }
+            else
+            {
+                ShowStatus(Status.NoChanges);
+            }
         }
 
         private List<int> GetSelectedRowIndexes()
@@ -51,36 +56,72 @@ namespace DigitalTreasury.Forms
             return indexes;
         }
 
-        private void tsBtnPrevMonth_Click(object sender, EventArgs e)
+        private void ShowStatus(Status status)
         {
+            switch (status)
+            {
+                case Status.None:
+                    tsLblStatus.Text = String.Empty;
+                    break;
 
+                case Status.SaveSuccessful:
+                    tsLblStatus.Text = "Data saved successfully!";
+                    break;
+
+                case Status.NoChanges:
+                    tsLblStatus.Text = "No changes to save!";
+                    break;
+            }
         }
 
-        private void tsBtnNextMonth_Click(object sender, EventArgs e)
+        private enum Status
         {
-
+            None,
+            SaveSuccessful,
+            NoChanges
         }
 
         private void tsBtnNewRecord_Click(object sender, EventArgs e)
         {
             m_ledger.NewTransaction();
-            bsLedger.ResetBindings(false);
         }
 
         private void tsBtnDeleteRecord_Click(object sender, EventArgs e)
         {
             m_ledger.RemoveTransactionsAt(GetSelectedRowIndexes());
-            bsLedger.ResetBindings(false);
         }
 
         private void tsBtnSave_Click(object sender, EventArgs e)
         {
+            dgvTransactions.EndEdit();
             SaveData();
         }
 
         private void tsBtnRollBack_Click(object sender, EventArgs e)
         {
             GetData();
+        }
+
+        private void tsTbTotalAmount_TextChanged(object sender, EventArgs e)
+        {
+            tsTbBalance.Text = m_ledger.Balance.ToString("C2", m_session.NumberFormat);
+        }
+
+        private void frmCheckbook_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (m_ledger.HasChanges)
+            {
+                DialogResult choice = MessageBox.Show("You have unsaved changes. Would you like to save now?", "Unsaved Changes", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
+
+                if (choice == DialogResult.Yes)
+                {
+                    SaveData();
+                }
+                else if (choice == DialogResult.Cancel)
+                {
+                    e.Cancel = true;
+                }
+            }
         }
     }
 }

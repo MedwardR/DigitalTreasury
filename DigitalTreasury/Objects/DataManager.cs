@@ -70,13 +70,15 @@ namespace DigitalTreasury.Objects
             }
             for (int i = 0; reader.Read(); i++)
             {
-                int index = reader.GetInt32(0);
+                Int32 index = reader.GetInt32(0);
                 DateOnly date = DateOnly.FromDateTime(reader.GetDateTime(1));
                 decimal amount = reader.GetDecimal(2);
                 string description = reader.GetString(3);
                 bool verified = reader.GetInt16(4) == 1;
 
-                ledger.NewTransaction(index, date, amount, description, verified);
+                Transaction t = new Transaction(index, date, amount, description, verified);
+
+                ledger.Transactions.Add(t);
             }
 
             m_dbConn.Close();
@@ -103,6 +105,8 @@ namespace DigitalTreasury.Objects
             }
 
             m_dbConn.Close();
+
+            ledger.ResetHasChanges();
         }
 
         public void GetNewDbConn(int orgId)

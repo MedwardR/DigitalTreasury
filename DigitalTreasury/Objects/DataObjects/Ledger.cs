@@ -7,6 +7,7 @@ namespace DigitalTreasury.Objects.DataObjects
     {
         private decimal m_principle;
         private TransactionCollection m_transactions;
+        private bool m_hasChanges = false;
 
         #region "Constructors"
         public Ledger()
@@ -26,11 +27,39 @@ namespace DigitalTreasury.Objects.DataObjects
         }
         #endregion
 
+        public void ResetHasChanges()
+        {
+            m_hasChanges = false;
+            m_transactions.ResetHasChanges();
+        }
+
+        public DateOnly GetLatestDate()
+        {
+            DateOnly latest = new();
+            
+            foreach (Transaction t in  m_transactions)
+            {
+                if (t.Date > latest)
+                {
+                    latest = t.Date;
+                }
+            }
+
+            return latest;
+        }
+
         #region "Public Properties"
         public decimal Principle
         {
             get { return m_principle; }
-            set { m_principle = value; }
+            set
+            {
+                if (m_principle != value)
+                {
+                    m_hasChanges = true;
+                    m_principle = value;
+                }
+            }
         }
 
         public TransactionCollection Transactions
@@ -39,7 +68,7 @@ namespace DigitalTreasury.Objects.DataObjects
             set { m_transactions = value; }
         }
 
-        public decimal Total
+        public decimal Balance
         {
             get
             {
@@ -49,6 +78,14 @@ namespace DigitalTreasury.Objects.DataObjects
                     total += t.Amount;
                 }
                 return total;
+            }
+        }
+
+        public bool HasChanges
+        {
+            get
+            {
+                return m_hasChanges || m_transactions.HasChanges;
             }
         }
         #endregion
@@ -73,6 +110,14 @@ namespace DigitalTreasury.Objects.DataObjects
         {
             DateOnly today = DateOnly.FromDateTime(DateTime.Now);
             Transactions.NewTransaction(today, 0);
+        }
+        public void NewTransaction(int index, DateOnly date)
+        {
+            Transactions.NewTransaction(index, date);
+        }
+        public void NewTransaction(DateOnly date)
+        {
+            Transactions.NewTransaction(date);
         }
         public void NewTransaction(int index, DateOnly date, decimal amount)
         {

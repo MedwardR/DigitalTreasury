@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="bsTransactions.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>602, 21</value>
-  </metadata>
-  <metadata name="bsLedger.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>504, 19</value>
-  </metadata>
   <metadata name="toolStripBottom.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
@@ -157,12 +151,6 @@
         5GKmGtUWGXzSeXgIO2Bd2A7LcyhyFxcKhUKhf7RY/AX5kKCjh/cjvAAAAABJRU5ErkJggg==
 </value>
   </data>
-  <metadata name="bsSessionOrg.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>253, 17</value>
-  </metadata>
-  <metadata name="bsSession.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>148, 20</value>
-  </metadata>
   <data name="tsBtnRollBack.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
@@ -188,27 +176,6 @@
 </value>
   </data>
   <metadata name="toolStripTop.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>384, 21</value>
+    <value>141, 21</value>
   </metadata>
-  <data name="tsBtnPrevMonth.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEBSURBVHhe7doxagJRFEbhaYJFIIVmMdlINpWlCGLjBmxi
-        Y5IVhXgueJvhmWkyUe87H5zGRv6rCMIMkiRJ0lU8netSDD/QkZbxQk9y/M+5T1pRF8bjsy96ptJi/DuN
-        x2dvVNalTz7b0AOV5HhqDY8cTyU5nlrDI8dTSY6n1vDI8VSS46k1PHI8ldT9+N/+0n7TltZX7IVmMfXJ
-        30qv9OfuZXw0ywEeaU+tN7y1ZjlAuJcjzHaA0PWPYJr6JuxoQaV5BHgEeAR4BHgEeAR4BHgEeAR4BHgE
-        eAR4BEz9lS79iEy69E3o4iGpND7CB3XzmFzKI3T5oGSK34RIkiRJ+lfDcAIOP9eyyLu5zwAAAABJRU5E
-        rkJggg==
-</value>
-  </data>
-  <data name="tsBtnNextMonth.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAD1SURBVHhe7ZpNagJBFAYHglujt/EiXsqLBLKIt/CPXCmY
-        emBv5G2bmelXBbVxI/Ux06D0JCIiIiIyC9uXJfnEK/7iPj6oxA7v+HxZaoQIfWCLLzfCCd/jmxcc/kz4
-        wC/MBghLPAmOAI4AjgCOAI4AjgCOAI4AjgCOAI4AjgCLGOGA3zN6xj/MBgi7/5Q+YvbFS7Lrk7CGAcJu
-        I6xlgG6vwhoG6HoOlD8E52SDP5iFh8bjkBiPWXhoPA6J8ZiFh8bjkBiPWXhoPA6J8ZiFh8bjsJS/IhN/
-        V2WXpErEN+Ka3A1LxjfaRcmS8Y0ILxsvIiIiIvMxTf+Me9fS1fYhYgAAAABJRU5ErkJggg==
-</value>
-  </data>
 </root>
