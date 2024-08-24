@@ -1,5 +1,4 @@
 ﻿using DigitalTreasury.Objects.DataObjects.Collections;
-using System.Security.Policy;
 
 namespace DigitalTreasury.Objects.DataObjects
 {
@@ -9,23 +8,10 @@ namespace DigitalTreasury.Objects.DataObjects
         private TransactionCollection m_transactions;
         private bool m_hasChanges = false;
 
-        #region "Constructors"
         public Ledger()
         {
-            m_principle = 0;
             m_transactions = new TransactionCollection();
         }
-        public Ledger(decimal principle)
-        {
-            m_principle = principle;
-            m_transactions = new TransactionCollection();
-        }
-        public Ledger(decimal principle, TransactionCollection transactions)
-        {
-            m_principle = principle;
-            m_transactions = transactions;
-        }
-        #endregion
 
         public void ResetHasChanges()
         {
@@ -105,57 +91,24 @@ namespace DigitalTreasury.Objects.DataObjects
 
         public void NewTransaction()
         {
-            DateOnly today = DateOnly.FromDateTime(DateTime.Now);
-            Transactions.NewTransaction(today, 0);
-        }
-        public void NewTransaction(int index, DateOnly date)
-        {
-            Transactions.NewTransaction(index, date);
-        }
-        public void NewTransaction(DateOnly date)
-        {
-            Transactions.NewTransaction(date);
-        }
-        public void NewTransaction(int index, DateOnly date, decimal amount)
-        {
-            Transactions.NewTransaction(index, date, amount);
-        }
-        public void NewTransaction(DateOnly date, decimal amount)
-        {
-            Transactions.NewTransaction(date, amount);
-        }
-        public void NewTransaction(int index, DateOnly date, decimal amount, string description)
-        {
-            Transactions.NewTransaction(index, date, amount, description);
-        }
-        public void NewTransaction(DateOnly date, decimal amount, string description)
-        {
-            Transactions.NewTransaction(date, amount, description);
-        }
-        public void NewTransaction(int index, DateOnly date, decimal amount, string description, bool verified)
-        {
-            Transactions.NewTransaction(index, date, amount, description, verified);
-        }
-        public void NewTransaction(DateOnly date, decimal amount, string description, bool verified)
-        {
-            Transactions.NewTransaction(date, amount, description, verified);
+            m_transactions.NewTransaction();
         }
 
         public void RemoveTransaction(Transaction transaction)
         {
-            Transactions.RemoveTransaction(transaction);
+            m_transactions.RemoveTransaction(transaction);
         }
 
         public void RemoveTransactionAt(int index)
         {
-            Transactions.RemoveTransactionAt(index);
+            m_transactions.RemoveTransactionAt(index);
         }
 
         public void RemoveTransactions(TransactionCollection transactions)
         {
             foreach (Transaction t in transactions)
             {
-                Transactions.RemoveTransaction(t);
+                m_transactions.RemoveTransaction(t);
             }
         }
 
@@ -163,7 +116,7 @@ namespace DigitalTreasury.Objects.DataObjects
         {
             foreach (int i in indexes)
             {
-                Transactions.RemoveTransactionAt(i);
+                m_transactions.RemoveTransactionAt(i);
             }
         }
         #endregion

@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using DigitalTreasury.Objects.DataObjects;
 using System.Web;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Reflection;
+using System.Drawing.Imaging;
 
 namespace DigitalTreasury.Objects.Helpers
 {
@@ -12,11 +15,13 @@ namespace DigitalTreasury.Objects.Helpers
     {
         public const string CreateTransactionsTableString =
         @"CREATE TABLE IF NOT EXISTS ""transactions"" (
-	        ""index""	INTEGER NOT NULL UNIQUE CHECK(""index"" >= 0),
-	        ""date""	TEXT NOT NULL DEFAULT (date('now')),
-	        ""amount""	NUMERIC NOT NULL DEFAULT 0,
-	        ""description""	TEXT,
-	        ""verified""	INTEGER NOT NULL DEFAULT 0 CHECK(""verified"" IN (0,1)),
+            ""index"" INTEGER NOT NULL UNIQUE CHECK(""index"" >= 0),
+            ""checkno""       INTEGER,
+			""date""  TEXT NOT NULL DEFAULT (date('now')),
+            ""amount""        NUMERIC NOT NULL DEFAULT 0,
+			""collection""    TEXT,
+            ""description""   TEXT,
+            ""verified""      INTEGER NOT NULL DEFAULT 0 CHECK(""verified"" IN (0,1)),
             PRIMARY KEY(""index"")
         );";
 
@@ -33,23 +38,28 @@ namespace DigitalTreasury.Objects.Helpers
         @"DROP TABLE IF EXISTS organization;";
 
         public const string SelectAllTransactionsString =
-        @"SELECT ""index"", ""date"", ""amount"", ""description"", ""verified"" FROM transactions;";
+        @"SELECT ""index"", ""checkno"", ""date"", ""amount"", ""collection"", ""description"", ""verified"" FROM transactions;";
 
         public const string SelectAllFromOrgString =
         @"SELECT ""name"", ""principle"" FROM organization;";
 
         public static string GetInsertIntoTransactionsString(Transaction t)
         {
-            return GetInsertIntoTransactionsString(t.Index, t.Date.ToString("yyyy-MM-dd"), t.Amount, t.Description, t.Verified ? 1 : 0);
-        }
-        public static string GetInsertIntoTransactionsString(int index, string date, decimal amount, string description, int verified)
-        {
-            return $@"INSERT INTO transactions (""index"", ""date"", ""amount"", ""description"", ""verified"") values ({index.ToString()}, '{date}', {amount.ToString()}, '{description}', {verified.ToString()});";
+            string index = t.Index.ToString();
+            string checkNo = t.CheckNo.HasValue ? t.CheckNo.Value.ToString() : "NULL";
+            string date = t.Date.ToString("yyyy-MM-dd");
+            string amount = t.Amount.ToString();
+            string collection = t.Collection;
+            string description = t.Description;
+            string verified = t.Verified ? "1" : "0";
+            return $@"INSERT INTO transactions (""index"", ""checkno"", ""date"", ""amount"", ""collection"", ""description"", ""verified"") VALUES ({index}, '{checkNo}', '{date}', {amount}, '{collection}', '{description}', {verified});";
         }
 
-        public static string GetInsertIntoOrgString(string name, decimal principle)
+        public static string GetInsertIntoOrgString(Organization o)
         {
-            return $@"INSERT INTO organization (""name"", ""principle"") values ('{name}', {principle});";
+            string name = o.Name;
+            string principle = o.Principle.ToString();
+            return $@"INSERT INTO organization (""name"", ""principle"") VALUES ('{name}', {principle})";
         }
 
         public static string GetSelectString(IEnumerable<string> columnNames, string table)

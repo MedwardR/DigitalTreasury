@@ -11,86 +11,13 @@ namespace DigitalTreasury.Objects.DataObjects
     public class Transaction
     {
         private int m_index;
+        private int? m_checkNo = null;
         private DateOnly m_date;
         private decimal m_amount;
+        private string m_collection;
         private string m_desc;
         private bool m_verified;
         private bool m_hasChanges = false;
-
-        #region "Constructors"
-        public Transaction()
-        {
-            m_index = 0;
-            m_date = DateOnly.FromDateTime(DateTime.Now);
-            m_amount = 0;
-            m_desc = String.Empty;
-            m_verified = false;
-        }
-        public Transaction(int index, DateOnly date)
-        {
-            m_index = index;
-            m_date = date;
-            m_amount = 0;
-            m_desc = string.Empty;
-            m_verified = false;
-        }
-        public Transaction(DateOnly date)
-        {
-            m_index = 0;
-            m_date = date;
-            m_amount = 0;
-            m_desc = string.Empty;
-            m_verified = false;
-        }
-        public Transaction(int index, DateOnly date, decimal amount)
-        {
-            m_index = index;
-            m_date = date;
-            m_amount = amount;
-            m_desc = string.Empty;
-            m_verified = false;
-        }
-        public Transaction(DateOnly date, decimal amount)
-        {
-            m_index = 0;
-            m_date = date;
-            m_amount = amount;
-            m_desc = string.Empty;
-            m_verified = false;
-        }
-        public Transaction(int index, DateOnly date, decimal amount, string description)
-        {
-            m_index = index;
-            m_date = date;
-            m_amount = amount;
-            m_desc = description;
-            m_verified = false;
-        }
-        public Transaction(DateOnly date, decimal amount, string description)
-        {
-            m_index = 0;
-            m_date = date;
-            m_amount = amount;
-            m_desc = description;
-            m_verified = false;
-        }
-        public Transaction(int index, DateOnly date, decimal amount, string description, bool verified)
-        {
-            m_index = index;
-            m_date = date;
-            m_amount = amount;
-            m_desc = description;
-            m_verified = verified;
-        }
-        public Transaction(DateOnly date, decimal amount, string description, bool verified)
-        {
-            m_index = 0;
-            m_date = date;
-            m_amount = amount;
-            m_desc = description;
-            m_verified = verified;
-        }
-        #endregion
 
         public void ResetHasChanges()
         {
@@ -107,6 +34,19 @@ namespace DigitalTreasury.Objects.DataObjects
                 {
                     m_hasChanges = true;
                     m_index = value;
+                }
+            }
+        }
+
+        public int? CheckNo
+        {
+            get { return m_checkNo; }
+            set
+            {
+                if (m_checkNo != value)
+                {
+                    m_hasChanges = true;
+                    m_checkNo = value;
                 }
             }
         }
@@ -133,6 +73,19 @@ namespace DigitalTreasury.Objects.DataObjects
                 {
                     m_hasChanges = true;
                     m_amount = value;
+                }
+            }
+        }
+
+        public string Collection
+        {
+            get { return m_collection; }
+            set
+            {
+                if (m_collection != value)
+                {
+                    m_hasChanges = true;
+                    m_collection = value;
                 }
             }
         }

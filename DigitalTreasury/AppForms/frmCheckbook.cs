@@ -1,6 +1,5 @@
 ﻿using DigitalTreasury.Objects;
 using DigitalTreasury.Objects.DataObjects;
-using DigitalTreasury.Objects.DataObjects.Collections;
 
 namespace DigitalTreasury.Forms
 {

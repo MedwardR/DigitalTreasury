@@ -21,7 +21,7 @@ namespace DigitalTreasury.Objects
         {
             m_dm = new DataManager();
 
-            m_org = m_dm.GetOrganizationFromId(m_dm.Settings.LastOrgId);
+            m_org = m_dm.GetOrganizationFromId();
 
             m_numberFormat = GetNewNumberFormat();
         }

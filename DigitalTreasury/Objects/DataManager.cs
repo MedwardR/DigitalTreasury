@@ -11,7 +11,7 @@ namespace DigitalTreasury.Objects
     {
         private SqliteConnection m_dbConn;
         private int m_orgId;
-        private Settings m_settings;
+        private Settings m_settings = new();
 
         public DataManager()
         {
@@ -45,7 +45,7 @@ namespace DigitalTreasury.Objects
         {
             Ledger ledger = new Ledger();
 
-            Organization org = GetOrganizationFromId(m_orgId);
+            Organization org = GetOrganizationFromId();
             ledger.Principle = org.Principle;
 
             m_dbConn.Open();
@@ -63,20 +63,27 @@ namespace DigitalTreasury.Objects
                 CreateNewDb(m_orgId);
                 reader = cmd.ExecuteReader();
             }
-            for (int i = 0; reader.Read(); i++)
+            while (reader.Read())
             {
-                Int32 index = reader.GetInt32(0);
-                DateOnly date = DateOnly.FromDateTime(reader.GetDateTime(1));
-                decimal amount = reader.GetDecimal(2);
-                string description = reader.GetString(3);
-                bool verified = reader.GetInt16(4) == 1;
+                Transaction t = new Transaction();
 
-                Transaction t = new Transaction(index, date, amount, description, verified);
+                t.Index = reader.GetInt32(0);
+                if (!reader.IsDBNull(1))
+                {
+                    t.CheckNo = reader.GetInt32(1);
+                }
+                t.Date = DateOnly.FromDateTime(reader.GetDateTime(2));
+                t.Amount = reader.GetDecimal(3);
+                t.Collection = reader.GetString(4);
+                t.Description = reader.GetString(5);
+                t.Verified = reader.GetInt16(6) != 0;
 
                 ledger.Transactions.Add(t);
             }
 
             m_dbConn.Close();
+
+            ledger.ResetHasChanges();
 
             return ledger;
         }
@@ -117,15 +124,11 @@ namespace DigitalTreasury.Objects
         {
             GetNewDbConn(orgId);
 
-            m_dbConn.Open();
-
             CreateNewTransactionsTable();
             CreateNewOrgTable();
-
-            m_dbConn.Close();
         }
 
-        public Organization GetOrganizationFromId(int orgId)
+        public Organization GetOrganizationFromId()
         {
             m_dbConn.Open();
 
@@ -140,28 +143,27 @@ namespace DigitalTreasury.Objects
             catch
             {
                 CreateNewOrgTable();
-                return GetOrganizationFromId(orgId);
+                return GetOrganizationFromId();
             }
 
             reader.Read();
-            string orgName = "";
-            decimal principle = 0;
+            Organization org = new(m_orgId);
             try
             {
-                orgName = reader.GetString(0);
-                principle = reader.GetDecimal(1);
+                org.Name = reader.GetString(0);
+                org.Principle = reader.GetDecimal(1);
             }
             catch (InvalidOperationException ex)
             {
                 if (ex.Message == "No data exists for the row/column.")
                 {
                     CreateNewOrgTable();
-                    return GetOrganizationFromId(orgId);
+                    return GetOrganizationFromId();
                 }
             }
 
             m_dbConn.Close();
-            return new Organization(orgId, orgName, principle);
+            return org;
         }
 
         private void CreateNewTransactionsTable()
@@ -189,8 +191,10 @@ namespace DigitalTreasury.Objects
 
             frmOrgSetup dbSetup = new frmOrgSetup();
             dbSetup.ShowDialog();
-            string orgName = dbSetup.OrgName;
-            decimal principle = dbSetup.Principle;
+            Organization org = new(m_orgId);
+            org.Name = dbSetup.OrgName;
+            org.Principle = dbSetup.Principle;
+
             using (SqliteCommand cmd = m_dbConn.CreateCommand())
             {
                 cmd.CommandText = SqlHelper.DropOrgTableString;
@@ -205,7 +209,7 @@ namespace DigitalTreasury.Objects
 
             using (SqliteCommand cmd = m_dbConn.CreateCommand())
             {
-                cmd.CommandText = SqlHelper.GetInsertIntoOrgString(orgName, principle);
+                cmd.CommandText = SqlHelper.GetInsertIntoOrgString(org);
                 cmd.ExecuteNonQuery();
             }
 

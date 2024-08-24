@@ -12,16 +12,9 @@ namespace DigitalTreasury.Objects.DataObjects
         private string m_name;
         private decimal m_principle;
 
-        public Organization(int id, string name)
+        public Organization(int id)
         {
             m_id = id;
-            m_name = name;
-        }
-        public Organization(int id, string name, decimal principle)
-        {
-            m_id = id;
-            m_name = name;
-            m_principle = principle;
         }
 
         public int Id
@@ -32,6 +25,7 @@ namespace DigitalTreasury.Objects.DataObjects
         public string Name
         {
             get { return m_name; }
+            set { m_name = value; }
         }
 
         public decimal Principle
