@@ -49,15 +49,15 @@ namespace DigitalTreasury.Objects.Helpers
             string checkNo = t.CheckNo.HasValue ? t.CheckNo.Value.ToString() : "NULL";
             string date = t.Date.ToString("yyyy-MM-dd");
             string amount = t.Amount.ToString();
-            string collection = t.Collection;
-            string description = t.Description;
+            string collection = EscapeChars(t.Collection);
+            string description = EscapeChars(t.Description);
             string verified = t.Verified ? "1" : "0";
             return $@"INSERT INTO transactions (""index"", ""checkno"", ""date"", ""amount"", ""collection"", ""description"", ""verified"") VALUES ({index}, '{checkNo}', '{date}', {amount}, '{collection}', '{description}', {verified});";
         }
 
         public static string GetInsertIntoOrgString(Organization o)
         {
-            string name = o.Name;
+            string name = EscapeChars(o.Name);
             string principle = o.Principle.ToString();
             return $@"INSERT INTO organization (""name"", ""principle"") VALUES ('{name}', {principle})";
         }
@@ -66,6 +66,12 @@ namespace DigitalTreasury.Objects.Helpers
         {
             string columnsCSV = $@"""{string.Join("\",\"", columnNames)}"";";
             return $@"SELECT {columnsCSV} FROM {table};";
+        }
+
+        private static string EscapeChars(string s)
+        {
+            s = s.Replace(@"'", @"''");
+            return s;
         }
     }
 }

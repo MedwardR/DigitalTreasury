@@ -34,9 +34,12 @@ namespace DigitalTreasury.Forms
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCheckbook));
             dgvTransactions = new DataGridView();
+            colCheckNo = new DataGridViewTextBoxColumn();
             colDate = new DataGridViewTextBoxColumn();
+            colCollection = new DataGridViewTextBoxColumn();
             colDesc = new DataGridViewTextBoxColumn();
             colAmount = new DataGridViewTextBoxColumn();
             colVerified = new DataGridViewCheckBoxColumn();
@@ -65,26 +68,46 @@ namespace DigitalTreasury.Forms
             dgvTransactions.BorderStyle = BorderStyle.None;
             dgvTransactions.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dgvTransactions.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvTransactions.Columns.AddRange(new DataGridViewColumn[] { colDate, colDesc, colAmount, colVerified });
+            dgvTransactions.Columns.AddRange(new DataGridViewColumn[] { colCheckNo, colDate, colCollection, colDesc, colAmount, colVerified });
             dgvTransactions.DataSource = typeof(Objects.DataObjects.Collections.TransactionCollection);
             dgvTransactions.Location = new Point(0, 0);
             dgvTransactions.Name = "dgvTransactions";
             dgvTransactions.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvTransactions.ShowCellErrors = false;
+            dgvTransactions.ShowCellToolTips = false;
             dgvTransactions.ShowRowErrors = false;
             dgvTransactions.Size = new Size(1035, 686);
             dgvTransactions.TabIndex = 100;
             dgvTransactions.CellFormatting += dgvTransactions_CellFormatting;
+            dgvTransactions.CellValidating += dgvTransactions_CellValidating;
             dgvTransactions.CellValueChanged += dgvTransactions_CellValueChanged;
+            // 
+            // colCheckNo
+            // 
+            colCheckNo.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            colCheckNo.DataPropertyName = "CheckNo";
+            dataGridViewCellStyle1.NullValue = null;
+            colCheckNo.DefaultCellStyle = dataGridViewCellStyle1;
+            colCheckNo.HeaderText = "Check No.";
+            colCheckNo.Name = "colCheckNo";
+            colCheckNo.Width = 87;
             // 
             // colDate
             // 
             colDate.DataPropertyName = "Date";
-            dataGridViewCellStyle1.Format = "M";
-            dataGridViewCellStyle1.NullValue = null;
-            colDate.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Format = "M";
+            dataGridViewCellStyle2.NullValue = null;
+            colDate.DefaultCellStyle = dataGridViewCellStyle2;
             colDate.HeaderText = "Date";
             colDate.Name = "colDate";
+            // 
+            // colCollection
+            // 
+            colCollection.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            colCollection.DataPropertyName = "Collection";
+            colCollection.HeaderText = "Collection";
+            colCollection.Name = "colCollection";
+            colCollection.Width = 86;
             // 
             // colDesc
             // 
@@ -96,9 +119,8 @@ namespace DigitalTreasury.Forms
             // colAmount
             // 
             colAmount.DataPropertyName = "Amount";
-            dataGridViewCellStyle2.Format = "C2";
-            dataGridViewCellStyle2.NullValue = "0";
-            colAmount.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.NullValue = "0";
+            colAmount.DefaultCellStyle = dataGridViewCellStyle3;
             colAmount.HeaderText = "Amount";
             colAmount.Name = "colAmount";
             // 
@@ -249,12 +271,14 @@ namespace DigitalTreasury.Forms
         private ToolStripLabel lblMonth;
         private ToolStripTextBox tsTbCurrentMonth;
         private ToolStripButton tsBtnSave;
-        private DataGridViewTextBoxColumn colDate;
-        private DataGridViewTextBoxColumn colDesc;
-        private DataGridViewTextBoxColumn colAmount;
-        private DataGridViewCheckBoxColumn colVerified;
         private ToolStripLabel tsLblStatus;
         private ToolStripTextBox tsTbBalance;
         private ToolStripLabel lblTotal;
+        private DataGridViewTextBoxColumn colCheckNo;
+        private DataGridViewTextBoxColumn colDate;
+        private DataGridViewTextBoxColumn colCollection;
+        private DataGridViewTextBoxColumn colDesc;
+        private DataGridViewTextBoxColumn colAmount;
+        private DataGridViewCheckBoxColumn colVerified;
     }
 }

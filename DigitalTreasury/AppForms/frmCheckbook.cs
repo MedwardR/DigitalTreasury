@@ -1,5 +1,7 @@
 ﻿using DigitalTreasury.Objects;
 using DigitalTreasury.Objects.DataObjects;
+using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace DigitalTreasury.Forms
 {
@@ -131,10 +133,49 @@ namespace DigitalTreasury.Forms
         private void dgvTransactions_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             DataGridViewColumn column = dgvTransactions.Columns[e.ColumnIndex];
-            if (column == colAmount && e.Value != null)
+            if (column == colAmount)
             {
-                e.Value = String.Format(m_session.NumberFormat, "{0:C2}", e.Value);
-                e.FormattingApplied = true;
+                if (e.Value != null)
+                {
+                    e.Value = String.Format(m_session.NumberFormat, "{0:C2}", e.Value);
+
+                    e.FormattingApplied = true;
+                }
+            }
+        }
+
+        private void dgvTransactions_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            if (e.FormattedValue != null)
+            {
+                if (e.FormattedValue is string text)
+                {
+                    DataGridViewColumn column = dgvTransactions.Columns[e.ColumnIndex];
+                    DataGridViewCell cell = dgvTransactions.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                    if (column == colCheckNo)
+                    {
+                        if (!int.TryParse(text, out int result))
+                        {
+                            cell.Value = null;
+                            dgvTransactions.CancelEdit();
+                        }
+                    }
+                    else if (column == colDate)
+                    {
+                        if (!DateTime.TryParse(text, out DateTime result))
+                        {
+                            dgvTransactions.CancelEdit();
+                        }
+                    }
+                    else if (column == colAmount)
+                    {
+                        if (!decimal.TryParse(text, System.Globalization.NumberStyles.Currency, System.Globalization.CultureInfo.CurrentCulture, out decimal result))
+                        {
+                            cell.Value = 0m;
+                            dgvTransactions.CancelEdit();
+                        }
+                    }
+                }
             }
         }
     }
