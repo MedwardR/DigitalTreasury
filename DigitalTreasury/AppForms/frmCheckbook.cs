@@ -26,6 +26,7 @@ namespace DigitalTreasury.Forms
         {
             dgvTransactions.DataSource = m_ledger.Transactions;
             tsLblSessionOrg.Text = m_session.Organization.Name;
+            RefreshBalance();
         }
 
         private void GetData()
@@ -74,6 +75,15 @@ namespace DigitalTreasury.Forms
             }
         }
 
+        private void RefreshBalance()
+        {
+            if (m_ledger != null && m_ledger.HasChanges)
+            {
+                decimal balance = m_ledger.GetBalance();
+                tsTbBalance.Text = balance.ToString("C2", m_session.NumberFormat);
+            }
+        }
+
         private enum Status
         {
             None,
@@ -97,16 +107,6 @@ namespace DigitalTreasury.Forms
             SaveData();
         }
 
-        private void tsBtnRollBack_Click(object sender, EventArgs e)
-        {
-            GetData();
-        }
-
-        private void tsTbTotalAmount_TextChanged(object sender, EventArgs e)
-        {
-            tsTbBalance.Text = m_ledger.Balance.ToString("C2", m_session.NumberFormat);
-        }
-
         private void frmCheckbook_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (m_ledger.HasChanges)
@@ -121,6 +121,21 @@ namespace DigitalTreasury.Forms
                 {
                     e.Cancel = true;
                 }
+            }
+        }
+
+        private void dgvTransactions_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            RefreshBalance();
+        }
+
+        private void dgvTransactions_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            DataGridViewColumn column = dgvTransactions.Columns[e.ColumnIndex];
+            if (column == colAmount && e.Value != null)
+            {
+                e.Value = String.Format(m_session.NumberFormat, "{0:C2}", e.Value);
+                e.FormattingApplied = true;
             }
         }
     }

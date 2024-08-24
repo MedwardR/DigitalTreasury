@@ -48,6 +48,16 @@ namespace DigitalTreasury.Objects.DataObjects
             return latest;
         }
 
+        public decimal GetBalance()
+        {
+            decimal total = m_principle;
+            foreach (Transaction t in m_transactions)
+            {
+                total += t.Amount;
+            }
+            return total;
+        }
+
         #region "Public Properties"
         public decimal Principle
         {
@@ -66,19 +76,6 @@ namespace DigitalTreasury.Objects.DataObjects
         {
             get { return m_transactions; }
             set { m_transactions = value; }
-        }
-
-        public decimal Balance
-        {
-            get
-            {
-                decimal total = Principle;
-                foreach (Transaction t in Transactions)
-                {
-                    total += t.Amount;
-                }
-                return total;
-            }
         }
 
         public bool HasChanges

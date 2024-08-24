@@ -26,10 +26,10 @@ namespace DigitalTreasury.Objects.Helpers
             ""principle""   NUMERIC NOT NULL DEFAULT 0
         );";
 
-        public const string DropTransactionsTable =
+        public const string DropTransactionsTableString =
         @"DROP TABLE IF EXISTS transactions;";
 
-        public const string DropOrgTable =
+        public const string DropOrgTableString =
         @"DROP TABLE IF EXISTS organization;";
 
         public const string SelectAllTransactionsString =
@@ -47,9 +47,9 @@ namespace DigitalTreasury.Objects.Helpers
             return $@"INSERT INTO transactions (""index"", ""date"", ""amount"", ""description"", ""verified"") values ({index.ToString()}, '{date}', {amount.ToString()}, '{description}', {verified.ToString()});";
         }
 
-        public static string GetInsertIntoOrgString(string name)
+        public static string GetInsertIntoOrgString(string name, decimal principle)
         {
-            return $@"INSERT INTO organization (""name"") values ('{name}');";
+            return $@"INSERT INTO organization (""name"", ""principle"") values ('{name}', {principle});";
         }
 
         public static string GetSelectString(IEnumerable<string> columnNames, string table)

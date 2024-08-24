@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!--
-    Microsoft ResX Schema 
+    Microsoft ResX Schema
 
     Version 2.0
 
@@ -48,7 +48,7 @@
     value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
     value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
@@ -149,30 +149,6 @@
         yr6EDcg1NfOKuNa5LnZCv7XNqnW7Fb4In8FqZFm2IdfYw5CirfWdS9u0b1jr+jB0Ft7BsAEvZKxebedS
         x4ePw4q01rUVaW3TPtWoVse4Pg5Ld2DYcU+ewXHIlZKgKGs9z0k1qnWb+Vy3QQ1Yg1gGzZgMtqSBaB0f
         5GKmGtUWGXzSeXgIO2Bd2A7LcyhyFxcKhUKhf7RY/AX5kKCjh/cjvAAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="tsBtnRollBack.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAQsSURBVHhe7ZpJqBxVFEA/cY4RFechTiAOOMUEgwsjGhGN
-        GtSNCxFd6ELcCslCRHDhALoQJEENKGiQaEBxQEER3QVEBcEYFFSCScQpQuIc4znmN7SXW7+7k3pVv/+v
-        AweK6qp+t+pVveG+mujo6Ojo6GiFUyadlRyH707q9qziZHwHd0/qtvtmBda2F/wP9m6A2+6b8U9CrPl+
-        d+GjeBDOSLKa7/c5nIczkqlqXt/EI3FGMqjm/8L3cDU+jPfijXgIjj2Dan4qt+MLeBueiXNwrBhU86O4
-        BR/Co3BsqPMG9PwCb8axaSz35RWo8jd8FY/BsWDQk/AjfjrpV/gd/onZsf1+iGfhtGA+3rdnM2XQk/A6
-        noGn4bl4FT6L9hDZ8T234QJslSPwDTSgp/BgzBj0JDyBsevzxnljv8XsHN2IR2Mr2Bi9jL1grDFvQhVT
-        PQl/oy19NhS+BL3Q7Dx9DQ/HxnHQkr2vT+NczMieBLfd529V+H+vYNVr8Qg2ygX4M2bBPI+HYRXxSXDb
-        fYPw9XoM+8vqae9wOTbCgfgixiCc0VlLw/TT1vbeJkT6X7t+38ZDsTjX406MAdiVnYTDsrcpsRPxc4zl
-        /4rLsTje6Vi4tX8LNsWluANjHB9g0XnD8ej7Fgv2pjSdzFiLMQ57k6JjgzswFvo7XoNNczVmvdADWIx1
-        GAv8EodpxevmWPwMYzy+BlUDsn3CrM0nGAt8CdtiFcZ4vsHTsXYc81vbscDbsS3uwRiPc4RzsHbORv88
-        FngZtsW1GOMxm1SkIVyEWddT5HEbEislxmOjbDdZO0swm821mcB05Bfj0SLD4sWYjQFam47CqRjjMUZj
-        rR2TFWZsYoHnY1ssxRiPMRpr7VT1Ag5I2uJujPEYo7HWjkmHjzAWaBBt8STGeIyxSILEScb7GAt0StvG
-        oqYX+THGeIyx2IRoBcYCfefaaAdMlf2CMR5jLIbJC2dcsdD7sWkexBiHsY2aYBmZLBv0PRYZflZwMWYp
-        OWMrzg2YJSffwqlygXXhGmHWFhmTsRXHLiabhpqScu2uNCvRDFQs35iKdH8Zt2IMQJ0sXYelcLk8a/jU
-        mBrF1ZysJn7AZVg3N6EzvVieMRhL45gF2oQxIP0J78Q6xgf+x12YXbwaQxsZqf8wF1i1QGLNuG64EPfH
-        UfEcz/U/sidNvdFt5CP/h+sEPvZZgGqQz6At9DBDVI/xWM/x3Ow/1QGYCZFpgbXgpyxZoP0a9Hr0u5+I
-        +/wtm3FGv8Y2M1EpZmE2YxZw1GlsJJvaZm7A83BachGaOq9qsHpeiRH3Zcf23IqPo4sz0xoXT52ouIj5
-        B2YXM8oNcIC1Bv0kZj8cGwzWtsFW3MVMvwfqXdSgV8Bj7d78fOYKHGsOwBPwQnQNwQ8o3I64z988xm3P
-        8dyOjo6Ojo6OjgJMTPwLQ3180tRNqaoAAAAASUVORK5CYII=
 </value>
   </data>
   <metadata name="toolStripTop.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">

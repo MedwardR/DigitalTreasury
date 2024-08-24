@@ -46,7 +46,6 @@ namespace DigitalTreasury.Forms
             tsLblSessionOrg = new ToolStripLabel();
             tsSeparator1 = new ToolStripSeparator();
             tsBtnSave = new ToolStripButton();
-            tsBtnRollBack = new ToolStripButton();
             toolStripTop = new ToolStrip();
             tsTbBalance = new ToolStripTextBox();
             lblTotal = new ToolStripLabel();
@@ -75,6 +74,8 @@ namespace DigitalTreasury.Forms
             dgvTransactions.ShowRowErrors = false;
             dgvTransactions.Size = new Size(1035, 686);
             dgvTransactions.TabIndex = 100;
+            dgvTransactions.CellFormatting += dgvTransactions_CellFormatting;
+            dgvTransactions.CellValueChanged += dgvTransactions_CellValueChanged;
             // 
             // colDate
             // 
@@ -116,7 +117,7 @@ namespace DigitalTreasury.Forms
             toolStripBottom.BackColor = SystemColors.Control;
             toolStripBottom.Dock = DockStyle.Bottom;
             toolStripBottom.GripStyle = ToolStripGripStyle.Hidden;
-            toolStripBottom.Items.AddRange(new ToolStripItem[] { tsBtnNewRecord, tsBtnDeleteRecord, tsLblSessionOrg, tsSeparator1, tsBtnSave, tsBtnRollBack });
+            toolStripBottom.Items.AddRange(new ToolStripItem[] { tsBtnNewRecord, tsBtnDeleteRecord, tsLblSessionOrg, tsSeparator1, tsBtnSave });
             toolStripBottom.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
             toolStripBottom.Location = new Point(0, 712);
             toolStripBottom.Name = "toolStripBottom";
@@ -174,16 +175,6 @@ namespace DigitalTreasury.Forms
             tsBtnSave.Text = "Save";
             tsBtnSave.Click += tsBtnSave_Click;
             // 
-            // tsBtnRollBack
-            // 
-            tsBtnRollBack.Image = (Image)resources.GetObject("tsBtnRollBack.Image");
-            tsBtnRollBack.ImageTransparentColor = Color.Magenta;
-            tsBtnRollBack.Margin = new Padding(2);
-            tsBtnRollBack.Name = "tsBtnRollBack";
-            tsBtnRollBack.Size = new Size(75, 23);
-            tsBtnRollBack.Text = "Roll Back";
-            tsBtnRollBack.Click += tsBtnRollBack_Click;
-            // 
             // toolStripTop
             // 
             toolStripTop.Dock = DockStyle.Bottom;
@@ -208,7 +199,6 @@ namespace DigitalTreasury.Forms
             tsTbBalance.ReadOnly = true;
             tsTbBalance.Size = new Size(100, 23);
             tsTbBalance.TextBoxTextAlign = HorizontalAlignment.Right;
-            tsTbBalance.TextChanged += tsTbTotalAmount_TextChanged;
             // 
             // lblTotal
             // 
@@ -253,19 +243,18 @@ namespace DigitalTreasury.Forms
         private ToolStripButton tsBtnDeleteRecord;
         private ToolStripButton tsBtnNewRecord;
         private ToolStripLabel tsLblSessionOrg;
-        private ToolStripButton tsBtnRollBack;
         private ToolStripSeparator tsSeparator1;
         private ToolStrip toolStripTop;
         private ToolStripTextBox tsTbTotalBalance;
-        private ToolStripLabel lblTotal;
         private ToolStripLabel lblMonth;
         private ToolStripTextBox tsTbCurrentMonth;
-        private ToolStripTextBox tsTbBalance;
         private ToolStripButton tsBtnSave;
         private DataGridViewTextBoxColumn colDate;
         private DataGridViewTextBoxColumn colDesc;
         private DataGridViewTextBoxColumn colAmount;
         private DataGridViewCheckBoxColumn colVerified;
         private ToolStripLabel tsLblStatus;
+        private ToolStripTextBox tsTbBalance;
+        private ToolStripLabel lblTotal;
     }
 }

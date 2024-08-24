@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Data.Sqlite;
+﻿using Microsoft.Data.Sqlite;
 using System.Text.Json;
 using DigitalTreasury.Objects.DataObjects;
-using System.Drawing.Text;
 using DigitalTreasury.Objects.Helpers;
-using System.Security.Cryptography;
 using System.Data.Common;
 using DigitalTreasury.AppForms;
-using System.Data;
-using System.Windows.Forms;
 
 namespace DigitalTreasury.Objects
 {
@@ -52,12 +43,16 @@ namespace DigitalTreasury.Objects
 
         public Ledger GetLedger()
         {
+            Ledger ledger = new Ledger();
+
+            Organization org = GetOrganizationFromId(m_orgId);
+            ledger.Principle = org.Principle;
+
             m_dbConn.Open();
 
-            Ledger ledger = new Ledger();
             SqliteCommand cmd = m_dbConn.CreateCommand();
             cmd.CommandText = SqlHelper.SelectAllTransactionsString;
-            
+
             SqliteDataReader reader;
             try
             {
@@ -175,7 +170,7 @@ namespace DigitalTreasury.Objects
 
             using (SqliteCommand cmd = m_dbConn.CreateCommand())
             {
-                cmd.CommandText = SqlHelper.DropTransactionsTable;
+                cmd.CommandText = SqlHelper.DropTransactionsTableString;
                 cmd.ExecuteNonQuery();
             }
 
@@ -195,9 +190,10 @@ namespace DigitalTreasury.Objects
             frmOrgSetup dbSetup = new frmOrgSetup();
             dbSetup.ShowDialog();
             string orgName = dbSetup.OrgName;
+            decimal principle = dbSetup.Principle;
             using (SqliteCommand cmd = m_dbConn.CreateCommand())
             {
-                cmd.CommandText = SqlHelper.DropOrgTable;
+                cmd.CommandText = SqlHelper.DropOrgTableString;
                 cmd.ExecuteNonQuery();
             }
 
@@ -209,7 +205,7 @@ namespace DigitalTreasury.Objects
 
             using (SqliteCommand cmd = m_dbConn.CreateCommand())
             {
-                cmd.CommandText = SqlHelper.GetInsertIntoOrgString(orgName);
+                cmd.CommandText = SqlHelper.GetInsertIntoOrgString(orgName, principle);
                 cmd.ExecuteNonQuery();
             }
 
